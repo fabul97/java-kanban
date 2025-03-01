@@ -1,47 +1,54 @@
 package taskManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class TaskManager {
-    protected static HashMap<Integer, Task> tasks;
-    protected static HashMap<Integer, Epic> epics;
-    protected static HashMap<Integer, Subtask> subtasks;
-
-    public TaskManager() {
-        tasks = new HashMap<>();
-        epics = new HashMap<>();
-        subtasks = new HashMap<>();
-    }
-
-
+    protected static HashMap<Integer, Task> tasks = new HashMap<>();
+    protected static HashMap<Integer, Epic> epics = new HashMap<>();
+    protected static HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     //  methods for Tasks
-    public void updateTask(Task task) {
+    public static Collection<Task> getTasks() {
+        return tasks.values();
+    }
+
+    public static void clearTasks() {
+        tasks.clear();
+    }
+
+    public static Task getTask(int taskId) {
+        return tasks.get(taskId);
+    }
+
+    public static void updateTask(Task task) {
         tasks.put(task.getTaskId(), task);
     }
 
-    public void printTasks() {
-        System.out.println(tasks);
+    public static void deleteTask(int taskId) {
+        tasks.remove(taskId);
     }
-
-    public static HashMap<Integer, Task> getTasks() {
-        return tasks;
-    }
-
-
 
     //  methods for Epics
-    public void updateEpic(Epic epic) {
+    public static Collection<Epic> getEpics() {
+        return epics.values();
+    }
+
+    public static void clearEpics() {
+        epics.clear();
+    }
+
+    public static Epic getEpic(int taskId) {
+        return epics.get(taskId);
+    }
+
+    public static void updateEpic(Epic epic) {
         epics.put(epic.getTaskId(), epic);
     }
 
-    public void printEpics() {
-        System.out.println(epics);
-    }
-
-    public static HashMap<Integer, Epic> getEpics() {
-        return epics;
+    public static void deleteEpic(int taskId) {
+        epics.remove(taskId);
     }
 
     public ArrayList<Subtask> getSubtasksOfEpic(int epicId) {
@@ -54,23 +61,28 @@ public class TaskManager {
         return result;
     }
 
-
-
     //  methods for Subtasks
-    public void updateSubtask(Subtask subtask) {
-        epics.get(subtask.getEpicId()).addSubtask(subtask.getTaskId());
+    public static Collection<Subtask> getSubtasks() {
+        return subtasks.values();
+    }
+
+    public static void clearSubtasks() {
+        subtasks.clear();
+    }
+
+    public static Subtask getSubtask(int taskId) {
+        return subtasks.get(taskId);
+    }
+
+    public static void updateSubtask(Subtask subtask) {
         subtasks.put(subtask.getTaskId(), subtask);
+        epics.get(subtask.getEpicId()).addSubtask(subtask.getTaskId());
     }
 
-    public void printSubtasks() {
-        System.out.println(subtasks);
+    public static void deleteSubtask(int taskId) {
+        epics.get(subtasks.get(taskId).getEpicId()).removeSubtask(taskId);
+        subtasks.remove(taskId);
     }
-
-    public static HashMap<Integer, Subtask> getSubtasks() {
-        return subtasks;
-    }
-
-
 
     @Override
     public String toString() {

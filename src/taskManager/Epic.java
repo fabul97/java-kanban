@@ -14,7 +14,7 @@ public class Epic extends Task {
     public Epic(String taskName, String taskDescription) {
         super(taskName, taskDescription);
         this.taskId = super.getTaskId();
-        this.subtaskIds = new ArrayList<Integer>();
+        this.subtaskIds = new ArrayList<>();
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.status = checkStatus();
@@ -32,6 +32,11 @@ public class Epic extends Task {
     public void addSubtask(int taskId) {
         if (!subtaskIds.contains(taskId)) subtaskIds.add(taskId);
         this.updateStatus();
+    }
+
+    public void removeSubtask(int taskId) {
+        // Безопасное удаление
+        subtaskIds.removeIf(integer -> integer == taskId);
     }
 
     void updateStatus() {
