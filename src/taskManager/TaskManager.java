@@ -74,11 +74,13 @@ public class TaskManager {
         return subtasks.get(taskId);
     }
 
+    // У меня обновляется статус Эпика при вызове метода addSubtask(int) в классе Epic
     public static void updateSubtask(Subtask subtask) {
         subtasks.put(subtask.getTaskId(), subtask);
         epics.get(subtask.getEpicId()).addSubtask(subtask.getTaskId());
     }
 
+    // Проверка на наличие taskId в листе есть в методе removeSubtask(int) в классе Epic
     public static void deleteSubtask(int taskId) {
         epics.get(subtasks.get(taskId).getEpicId()).removeSubtask(taskId);
         subtasks.remove(taskId);
