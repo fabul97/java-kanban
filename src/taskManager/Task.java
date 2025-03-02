@@ -33,10 +33,6 @@ public class Task {
         return taskId;
     }
 
-    public static int getCountId() {
-        return countId;
-    }
-
     public String getTaskName() {
         return taskName;
     }
@@ -54,7 +50,7 @@ public class Task {
         if (o == this) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return ((getTaskId() == task.getTaskId()) || (Objects.equals(getTaskName(), task.getTaskName()) && Objects.equals(getTaskDescription(), task.getTaskDescription())));
+        return (getTaskId() == task.getTaskId());
     }
 
     @Override
