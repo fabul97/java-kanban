@@ -1,4 +1,6 @@
-package taskManager;
+package taskManager.tasks;
+
+import taskManager.manager.TaskManager;
 
 public class Subtask extends Task {
 
@@ -20,12 +22,12 @@ public class Subtask extends Task {
 
     public Subtask(int taskId, String taskName, String taskDescription, TaskStatus status) {
         super(taskId, taskName, taskDescription, status);
-        this.epicId = TaskManager.subtasks.get(taskId).getEpicId();
+        this.epicId = TaskManager.returnSubtasks().get(taskId).getEpicId();
         this.taskId = taskId;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.status = status;
-        TaskManager.epics.get(this.epicId).updateStatus();
+        TaskManager.returnEpics().get(this.epicId).updateStatus();
     }
 
     @Override

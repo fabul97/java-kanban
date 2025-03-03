@@ -1,4 +1,8 @@
-import taskManager.*;
+import taskManager.manager.TaskManager;
+import taskManager.tasks.Epic;
+import taskManager.tasks.Subtask;
+import taskManager.tasks.Task;
+import taskManager.tasks.TaskStatus;
 
 
 public class Main {

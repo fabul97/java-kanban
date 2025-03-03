@@ -1,4 +1,6 @@
-package taskManager;
+package taskManager.tasks;
+
+import taskManager.manager.TaskManager;
 
 import java.util.ArrayList;
 
@@ -23,7 +25,7 @@ public class Epic extends Task {
     public Epic(int taskId, String taskName, String taskDescription) {
         super(taskId, taskName, taskDescription);
         this.taskId = taskId;
-        this.subtaskIds = TaskManager.epics.get(taskId).getSubtasks();
+        this.subtaskIds = TaskManager.returnEpics().get(taskId).getSubtasks();
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.status = checkStatus();
@@ -49,7 +51,7 @@ public class Epic extends Task {
         boolean allNew = true;
         boolean allDone = true;
 
-        for (Subtask subtask : TaskManager.subtasks.values()) {
+        for (Subtask subtask : TaskManager.returnSubtasks().values()) {
             if (subtask.getStatus() != TaskStatus.NEW) {
                 allNew = false;
             }

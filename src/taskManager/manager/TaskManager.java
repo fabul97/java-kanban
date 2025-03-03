@@ -1,13 +1,17 @@
-package taskManager;
+package taskManager.manager;
+
+import taskManager.tasks.Epic;
+import taskManager.tasks.Subtask;
+import taskManager.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 public class TaskManager {
-    protected static HashMap<Integer, Task> tasks = new HashMap<>();
-    protected static HashMap<Integer, Epic> epics = new HashMap<>();
-    protected static HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    static HashMap<Integer, Task> tasks = new HashMap<>();
+    static HashMap<Integer, Epic> epics = new HashMap<>();
+    static HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     //  methods for Tasks
     public static Collection<Task> getTasks() {
@@ -78,12 +82,30 @@ public class TaskManager {
     public static void updateSubtask(Subtask subtask) {
         subtasks.put(subtask.getTaskId(), subtask);
         epics.get(subtask.getEpicId()).addSubtask(subtask.getTaskId());
+        // Не совсем понимаю, почему при обновлении сабтаски, не будет обновляться эпик. Во-первых, по тестам обновляет.
+        // Во-вторых, у меня сначала обновляется таска в первой строке метода. А на второй строчке
+        // после добавления сабтаски в мапу я добавляю ее в список с айдишками сабатсков, который хранится в эпике.
+        // Он же идет после добавления таска уже, поэтому всегда будет обновлять статус эпика?
+
+        // Пекеджи переделал.
     }
 
     // Проверка на наличие taskId в листе есть в методе removeSubtask(int) в классе Epic
     public static void deleteSubtask(int taskId) {
         epics.get(subtasks.get(taskId).getEpicId()).removeSubtask(taskId);
         subtasks.remove(taskId);
+    }
+
+    public static HashMap<Integer, Task> returnTasks() {
+        return tasks;
+    }
+
+    public static HashMap<Integer, Epic> returnEpics() {
+        return epics;
+    }
+
+    public static HashMap<Integer, Subtask> returnSubtasks() {
+        return subtasks;
     }
 
     @Override
