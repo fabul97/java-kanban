@@ -6,10 +6,19 @@ public class Subtask extends Task {
 
     private final int epicId;
 
-        private final int taskId;
-        private final String taskName;
-        private final String taskDescription;
-        private final TaskStatus status;
+    private final int taskId;
+    private final String taskName;
+    private final String taskDescription;
+    private final TaskStatus status;
+
+    // По ТЗ мы не можем менять поля у экземпляров класса. Мы должны создавать новый экземпляр и удалять старый,
+    // и вместо него уже в массив класть новый с тем же task_id. Поэтому я решил сделать поля final.
+    // "При обновлении данных можете считать, что на вход подаётся новый объект, который должен полностью заменить
+    // старый."
+
+    // "Фраза «информация приходит вместе с информацией по задаче» означает, что не существует отдельного метода,
+    // который занимался бы только обновлением статуса задачи. Вместо этого статус задачи обновляется вместе с полным
+    // обновлением задачи."
 
     public Subtask(String taskName, String taskDescription, int epicId) {
         super(taskName, taskDescription);
