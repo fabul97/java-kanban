@@ -1,23 +1,19 @@
-package taskManager.manager.tasks;
+package taskManager.tasks;
 
 import taskManager.manager.Managers;
 
 import taskManager.manager.history.HistoryManager;
-import taskManager.tasks.Epic;
-import taskManager.tasks.Subtask;
-import taskManager.tasks.Task;
+import taskManager.manager.tasks.TaskManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
-    private final static HashMap<Integer, Task> tasks = new HashMap<>();
-    private final static HashMap<Integer, Epic> epics = new HashMap<>();
-    private final static HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     private final HistoryManager history = Managers.getDefaultHistory();
 
+    // Methods for Tasks
     @Override
     public Collection<Task> getTasks() {
         return tasks.values();
@@ -46,9 +42,39 @@ public class InMemoryTaskManager implements TaskManager {
         tasks.remove(taskId);
     }
 
+    // Methods for Epics
     @Override
     public Collection<Epic> getEpics() {
         return epics.values();
+    }
+
+    static void updateStatus(Epic epic) {
+         epic.setStatus(checkStatus(epic));
+    }
+
+    static TaskStatus checkStatus(Epic epic) {
+        if (epic.getSubtasks() == null || epic.getSubtasks().isEmpty()) return TaskStatus.NEW;
+
+        boolean allNew = true;
+        boolean allDone = true;
+
+        for (Subtask subtask : InMemoryTaskManager.returnSubtasks().values()) {
+            if (subtask.getStatus() != TaskStatus.NEW) {
+                allNew = false;
+            }
+            if (subtask.getStatus() != TaskStatus.DONE) {
+                allDone = false;
+            }
+        }
+
+        if (allNew) {
+            return TaskStatus.NEW;
+        }
+        if (allDone) {
+            return TaskStatus.DONE;
+        }
+
+        return TaskStatus.IN_PROGRESS;
     }
 
     @Override
@@ -83,6 +109,7 @@ public class InMemoryTaskManager implements TaskManager {
         return result;
     }
 
+    // Methods for Subtasks
     @Override
     public Collection<Subtask> getSubtasks() {
         return subtasks.values();

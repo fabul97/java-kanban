@@ -9,6 +9,11 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public interface TaskManager {
+
+    final HashMap<Integer, Task> tasks = new HashMap<>();
+    final HashMap<Integer, Epic> epics = new HashMap<>();
+    final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+
     Collection<Task> getTasks();
     void clearTasks();
     Task getTask(int taskId);

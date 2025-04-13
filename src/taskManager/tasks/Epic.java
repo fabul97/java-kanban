@@ -1,7 +1,5 @@
 package taskManager.tasks;
 
-import taskManager.manager.tasks.InMemoryTaskManager;
-
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -19,7 +17,7 @@ public class Epic extends Task {
         this.subtaskIds = new ArrayList<>();
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-        this.status = checkStatus();
+        this.status = InMemoryTaskManager.checkStatus(this);
     }
 
     public Epic(int taskId, String taskName, String taskDescription) {
@@ -28,46 +26,21 @@ public class Epic extends Task {
         this.subtaskIds = InMemoryTaskManager.returnEpics().get(taskId).getSubtasks();
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-        this.status = checkStatus();
+        this.status = InMemoryTaskManager.checkStatus(this);
     }
 
-    public void addSubtask(int taskId) {
+    void addSubtask(int taskId) {
         if (!subtaskIds.contains(taskId)) subtaskIds.add(taskId);
-        this.updateStatus();
+        this.status = InMemoryTaskManager.checkStatus(this);
     }
 
-    public void removeSubtask(int taskId) {
+    void removeSubtask(int taskId) {
         // Безопасное удаление
         subtaskIds.removeIf(integer -> integer == taskId);
     }
 
-    void updateStatus() {
-        this.status = checkStatus();
-    }
-
-    private TaskStatus checkStatus() {
-        if (subtaskIds == null || subtaskIds.isEmpty()) return TaskStatus.NEW;
-
-        boolean allNew = true;
-        boolean allDone = true;
-
-        for (Subtask subtask : InMemoryTaskManager.returnSubtasks().values()) {
-            if (subtask.getStatus() != TaskStatus.NEW) {
-                allNew = false;
-            }
-            if (subtask.getStatus() != TaskStatus.DONE) {
-                allDone = false;
-            }
-        }
-
-        if (allNew) {
-            return TaskStatus.NEW;
-        }
-        if (allDone) {
-            return TaskStatus.DONE;
-        }
-
-        return TaskStatus.IN_PROGRESS;
+    void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
     public ArrayList<Integer> getSubtasks() {

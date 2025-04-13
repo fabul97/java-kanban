@@ -1,6 +1,6 @@
 package taskManager.manager;
 
-import taskManager.manager.tasks.InMemoryTaskManager;
+import taskManager.tasks.InMemoryTaskManager;
 import taskManager.manager.tasks.TaskManager;
 
 import taskManager.manager.history.HistoryManager;

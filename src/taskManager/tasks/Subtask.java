@@ -1,7 +1,5 @@
 package taskManager.tasks;
 
-import taskManager.manager.tasks.InMemoryTaskManager;
-
 public class Subtask extends Task {
 
     private final int epicId;
@@ -11,17 +9,11 @@ public class Subtask extends Task {
     private final String taskDescription;
     private final TaskStatus status;
 
-    // По ТЗ мы не можем менять поля у экземпляров класса. Мы должны создавать новый экземпляр и удалять старый,
-    // и вместо него уже в массив класть новый с тем же task_id. Поэтому я решил сделать поля final.
-    // "При обновлении данных можете считать, что на вход подаётся новый объект, который должен полностью заменить
-    // старый."
-
-    // "Фраза «информация приходит вместе с информацией по задаче» означает, что не существует отдельного метода,
-    // который занимался бы только обновлением статуса задачи. Вместо этого статус задачи обновляется вместе с полным
-    // обновлением задачи."
-
     public Subtask(String taskName, String taskDescription, int epicId) {
         super(taskName, taskDescription);
+        if (epicId == super.getTaskId()) {
+            throw new IllegalArgumentException("Подзадача не может быть привязана к своему собственному эпику.");
+        }
         this.epicId = epicId;
         this.taskId = super.getTaskId();
         this.taskName = taskName;
@@ -36,7 +28,7 @@ public class Subtask extends Task {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.status = status;
-        InMemoryTaskManager.returnEpics().get(this.epicId).updateStatus();
+        InMemoryTaskManager.updateStatus(InMemoryTaskManager.returnEpics().get(this.epicId));
     }
 
     @Override

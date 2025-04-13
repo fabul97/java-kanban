@@ -53,6 +53,11 @@ public class Task {
         return (getTaskId() == task.getTaskId());
     }
 
+    // For Tests
+    public static void resetCountId() {
+        countId = 0;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getTaskId(), getTaskName(), getTaskDescription());
