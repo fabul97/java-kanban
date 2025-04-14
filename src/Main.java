@@ -1,6 +1,6 @@
-import taskManager.manager.*;
-import taskManager.manager.tasks.TaskManager;
-import taskManager.tasks.*;
+import taskmanager.manager.*;
+import taskmanager.manager.tasks.TaskManager;
+import taskmanager.tasks.*;
 
 public class Main {
 

@@ -1,44 +1,29 @@
-package taskManager.tasks;
+package taskmanager.tasks;
 
 public class Subtask extends Task {
 
     private final int epicId;
 
-    private final int taskId;
-    private final String taskName;
-    private final String taskDescription;
-    private final TaskStatus status;
 
     public Subtask(String taskName, String taskDescription, int epicId) {
         super(taskName, taskDescription);
-        if (epicId == super.getTaskId()) {
-            throw new IllegalArgumentException("Подзадача не может быть привязана к своему собственному эпику.");
-        }
         this.epicId = epicId;
-        this.taskId = super.getTaskId();
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
-        this.status = TaskStatus.NEW;
     }
 
     public Subtask(int taskId, String taskName, String taskDescription, TaskStatus status) {
         super(taskId, taskName, taskDescription, status);
         this.epicId = InMemoryTaskManager.returnSubtasks().get(taskId).getEpicId();
-        this.taskId = taskId;
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
-        this.status = status;
         InMemoryTaskManager.updateStatus(InMemoryTaskManager.returnEpics().get(this.epicId));
     }
 
     @Override
     public String getTaskName() {
-        return taskName;
+        return super.getTaskName();
     }
 
     @Override
     public String getTaskDescription() {
-        return taskDescription;
+        return super.getTaskDescription();
     }
 
     public int getEpicId() {
@@ -47,18 +32,18 @@ public class Subtask extends Task {
 
     @Override
     public TaskStatus getStatus() {
-        return status;
+        return super.getStatus();
     }
 
     @Override
     public String toString() {
         return "Subtask{" +
                 "epicId=" + epicId +
-                ", taskId=" + taskId +
-                ", taskName='" + taskName + '\'' +
+                ", taskId=" + super.getTaskId() +
+                ", taskName='" + super.getTaskName() + '\'' +
                 //", taskDescription.length='" + taskDescription.length() + '\'' +
-                ", taskDescription='" + taskDescription + '\'' +
-                ", status=" + status +
+                ", taskDescription='" + super.getTaskDescription() + '\'' +
+                ", status=" + super.getTaskDescription() +
                 '}';
     }
 }

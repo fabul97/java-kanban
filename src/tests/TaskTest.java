@@ -1,11 +1,10 @@
 package tests;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskManager.manager.Managers;
-import taskManager.manager.tasks.TaskManager;
-import taskManager.tasks.*;
+import taskmanager.manager.Managers;
+import taskmanager.manager.tasks.TaskManager;
+import taskmanager.tasks.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;

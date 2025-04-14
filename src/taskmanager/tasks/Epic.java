@@ -1,4 +1,4 @@
-package taskManager.tasks;
+package taskmanager.tasks;
 
 import java.util.ArrayList;
 
@@ -6,26 +6,18 @@ public class Epic extends Task {
 
     private final ArrayList<Integer> subtaskIds;
 
-    private final int taskId;
-    private final String taskName;
-    private final String taskDescription;
+
     private TaskStatus status;
 
     public Epic(String taskName, String taskDescription) {
         super(taskName, taskDescription);
-        this.taskId = super.getTaskId();
         this.subtaskIds = new ArrayList<>();
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
         this.status = InMemoryTaskManager.checkStatus(this);
     }
 
     public Epic(int taskId, String taskName, String taskDescription) {
         super(taskId, taskName, taskDescription);
-        this.taskId = taskId;
         this.subtaskIds = InMemoryTaskManager.returnEpics().get(taskId).getSubtasks();
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
         this.status = InMemoryTaskManager.checkStatus(this);
     }
 
@@ -47,14 +39,18 @@ public class Epic extends Task {
         return subtaskIds;
     }
 
+    void clearSubtasksOfEpic() {
+        subtaskIds.clear();
+    }
+
     @Override
     public String getTaskName() {
-        return taskName;
+        return super.getTaskName();
     }
 
     @Override
     public String getTaskDescription() {
-        return taskDescription;
+        return super.getTaskDescription();
     }
 
     @Override
@@ -65,11 +61,11 @@ public class Epic extends Task {
     @Override
     public String toString() {
         return "Epic{" +
-                "taskId=" + taskId +
+                "taskId=" + super.getTaskId() +
                 ", subtaskIds=" + subtaskIds +
-                ", taskName='" + taskName + '\'' +
+                ", taskName='" + super.getTaskName() + '\'' +
                 //", taskDescription.length='" + taskDescription.length() + '\'' +
-                ", taskDescription='" + taskDescription + '\'' +
+                ", taskDescription='" + super.getTaskDescription() + '\'' +
                 ", status=" + status +
                 '}';
     }

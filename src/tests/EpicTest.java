@@ -2,12 +2,12 @@ package tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskManager.manager.Managers;
-import taskManager.manager.tasks.TaskManager;
-import taskManager.tasks.Epic;
-import taskManager.tasks.Subtask;
-import taskManager.tasks.Task;
-import taskManager.tasks.TaskStatus;
+import taskmanager.manager.Managers;
+import taskmanager.manager.tasks.TaskManager;
+import taskmanager.tasks.Epic;
+import taskmanager.tasks.Subtask;
+import taskmanager.tasks.Task;
+import taskmanager.tasks.TaskStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
 

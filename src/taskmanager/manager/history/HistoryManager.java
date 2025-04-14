@@ -1,6 +1,6 @@
-package taskManager.manager.history;
+package taskmanager.manager.history;
 
-import taskManager.tasks.Task;
+import taskmanager.tasks.Task;
 
 import java.util.ArrayList;
 

@@ -1,18 +1,14 @@
-package taskManager.manager.tasks;
+package taskmanager.manager.tasks;
 
-import taskManager.tasks.Epic;
-import taskManager.tasks.Subtask;
-import taskManager.tasks.Task;
+import taskmanager.tasks.Epic;
+import taskmanager.tasks.Subtask;
+import taskmanager.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 public interface TaskManager {
-
-    final HashMap<Integer, Task> tasks = new HashMap<>();
-    final HashMap<Integer, Epic> epics = new HashMap<>();
-    final HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     Collection<Task> getTasks();
     void clearTasks();
